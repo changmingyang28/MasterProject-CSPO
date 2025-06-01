@@ -33,9 +33,13 @@ Alternatively, output a log:
 ```
 ./synthesis >output.log
 ```
+the file synthesis.cpp is to compute the product of plant and specification into a non-deterministic Rabin Automaton
 
-At present in the 2nd main() function, I'm testing the PseudoDeterminization algorithm.
-To see the whole process of the article, just de-commit the 1st main()
+For the determinization algorithm, you can run
+```
+./PseudoDet >output.log
+```
+
 ## Documentation
 
 The Documentation of my work is accessible via .../libfaudes/plugins/synthesis/documentation/docu.pdf.
