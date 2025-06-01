@@ -14,40 +14,31 @@ algorithms for the analysis and synthesis of DESs.
 The core library sources are provided for free under conditions of the GNU Lesser 
 General Public License.  Different terms may apply to libFAUDES plug-ins.
 
+## Usage
+This fork is used for the implementation of Changming Yang's Master Thesis 
+on the topic "Effective Control synthesis of Omega-language under partial Observation",
+With a correct environment, you can easily compile with 
+```bash
+make dist-clean
+make configure
+make -j20
+make -j20 tutorial 
+```
+The implemented files are in the folder .../libfaudes/plugins/synthesis,
+At present, you can go to the folder .../tutorial and run
+```
+./syn_10_test2
+```
+Alternatively, output a log:
+```
+./syn_10_test2 >output.log
+```
 
-
-
+At present in the 2nd main() function, I'm testing the PseudoDeterminization algorithm.
+To see the whole process of the article, just de-commit the 1st main()
 ## Documentation
 
-libFAUDES ships with auto-generated HTML documentaion which can be
-accessed via ./doc/index.html. An online version is available at
-
-https://fgdes.tf.fau.de/faudes
-
-For your convenience, precompiled binaries are distributed at
-
-https://fgdes.tf.fau.de/download.html
-
-If you want to build your own, see the build process documentation
-
-https://fgdes.tf.fau.de/faudes/faudes_build.html
-
-
-## Versioning/Branching
-
-The <i>main</i> branch of this repository is at least in a state to compile all default 
-plug-ins and pass the test cases. It should be suitable for the devlopment of libFAUDES 
-based applications. We add tags to <i>main</i> whenever the version (as specified in the 
-file `VERSION`) number is incremented. In this event we typically validate in Linux,
-Mac OS amd Windows environments.
-
-The <i>dev</i> branch is used for our ongoing development process. We typically only commit
-when test cases pass, but there may be temporally exceptions and we rarely validate in a 
-Windows environment. We wont bother to increment version numbers or to set tages either. The 
-<i>dev</i> branch is only of interest, if you plant to contribute to libFAUDES and want to 
-inspect latest features. In that case you most likely want to have your personal branch/fork 
-based on the <i>dev</i> branch.
-
+The Documentation of my work is accessible via .../libfaudes/plugins/synthesis/documentation/docu.pdf.
 
 
 ## Authors/Copyright
