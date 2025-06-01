@@ -1,0 +1,18 @@
+<RabinAcceptance>
+<RabinPair name="RabinPair">
+<R>
+1              2              3             
+</R>
+<I>
+1              2              3              4              6             
+</I>
+</RabinPair>
+<RabinPair name="RabinPair">
+<R>
+7              8              9             
+</R>
+<I>
+4              5              6              7              8              9             
+</I>
+</RabinPair>
+</RabinAcceptance>

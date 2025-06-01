@@ -1,0 +1,67 @@
+<Generator>
+
+% 
+%  Statistics for Generator
+% 
+%  States:        12
+%  Init/Marked:   1/1
+%  Events:        4
+%  Transitions:   20
+%  StateSymbols:  12
+%  Attrib. E/S/T: 4/0/0
+% 
+
+<Alphabet>
+alpha_1       +C+           alpha_2       +C+           beta_1        +o+          
+beta_2        +o+          
+</Alphabet>
+
+<States>
+I|I|E         I|I|F1        I|I|F2        B|I|E         B|I|F1        B|I|F2       
+I|B|E         I|B|F1        I|B|F2        B|B|E         B|B|F1        B|B|F2       
+</States>
+
+<TransRel>
+I|I|E         alpha_1       B|I|E        
+I|I|F1        alpha_1       B|I|F1       
+I|I|F1        alpha_2       I|B|E        
+I|I|F2        alpha_1       B|I|F2       
+I|I|F2        alpha_2       I|B|F1       
+B|I|E         beta_1        I|I|F1       
+B|I|F1        alpha_2       B|B|E        
+B|I|F1        beta_1        I|I|F2       
+B|I|F2        alpha_2       B|B|F1       
+I|B|E         alpha_1       B|B|E        
+I|B|E         beta_2        I|I|E        
+I|B|F1        alpha_1       B|B|F1       
+I|B|F1        beta_2        I|I|F1       
+I|B|F2        alpha_1       B|B|F2       
+I|B|F2        beta_2        I|I|F2       
+B|B|E         beta_1        I|B|F1       
+B|B|E         beta_2        B|I|E        
+B|B|F1        beta_1        I|B|F2       
+B|B|F1        beta_2        B|I|F1       
+B|B|F2        beta_2        B|I|F2       
+</TransRel>
+
+<InitStates>
+I|I|E        
+</InitStates>
+
+<MarkedStates>
+I|I|E        
+</MarkedStates>
+
+<RabinAcceptance>
+<RabinPair name="RabinPair">
+<R>
+I|I|F2        B|I|F2        I|B|F2        B|B|F2       
+</R>
+<I>
+I|I|F1        I|I|F2        B|I|F1        B|I|F2        I|B|F1        I|B|F2       
+B|B|F1        B|B|F2       
+</I>
+</RabinPair>
+</RabinAcceptance>
+
+</Generator>

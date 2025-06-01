@@ -1,3 +1,0 @@
-lnb result: 1
-msa result: 1
-observer result: 1

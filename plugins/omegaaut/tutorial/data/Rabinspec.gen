@@ -1,0 +1,33 @@
+<Generator name="buffer">
+
+<Alphabet>
+alpha_2 beta_1
+</Alphabet>
+
+<States>
+E F1 F2
+</States>
+
+<TransRel>
+E beta_1 F1
+F1   beta_1 F2
+F2   alpha_2  F1
+F1   alpha_2  E
+</TransRel>
+
+<InitStates>
+E
+</InitStates>
+
+<MarkedStates>
+E 
+</MarkedStates>
+
+<RabinAcceptance>
+<RabinPair name="safe">
+<R> F2 </R>
+<I> F1 F2 </I>
+</RabinPair>
+</RabinAcceptance>
+
+</Generator>

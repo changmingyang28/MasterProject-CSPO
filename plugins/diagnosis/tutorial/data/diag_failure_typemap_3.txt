@@ -1,7 +1,0 @@
-<FailureTypes>
-"F"          
-<FailureEvents>
-"f"          
-</FailureEvents>
-</FailureTypes>
-

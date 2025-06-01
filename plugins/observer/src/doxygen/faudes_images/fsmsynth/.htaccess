@@ -1,8 +1,0 @@
-# allow index for observer plugin
-Options +Indexes
-
-# have header file inarchive listing
-HeaderName .emptyheader.html
-ReadmeName .emptyfooter.html
-
-

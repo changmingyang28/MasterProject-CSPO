@@ -1,0 +1,34 @@
+<Generator name="Plant">
+
+<Alphabet>
+alpha_1 alpha_2 beta_1 beta_2
+</Alphabet>
+
+<States>
+I|I   B|I   I|B   B|B
+</States>
+
+<TransRel>
+I|I       alpha_1    B|I    
+I|I       alpha_2    I|B     
+B|I       beta_1     I|I       
+B|I       alpha_2    B|B       
+I|B       alpha_1    B|B       
+I|B       beta_2     I|I      
+B|B       beta_1     I|B      
+B|B       beta_2     B|I
+</TransRel>
+
+<InitStates>
+I|I
+</InitStates>
+
+<MarkedStates>
+I|I 
+</MarkedStates>
+
+<RabinAcceptance>
+
+</RabinAcceptance>
+
+</Generator>
