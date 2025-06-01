@@ -31,13 +31,13 @@ At present, you can go to the folder .../tutorial and run
 ```
 Alternatively, output a log:
 ```
-./synthesis >output.log
+./synthesis >NRA.log
 ```
 the file synthesis.cpp is to compute the product of plant and specification into a non-deterministic Rabin Automaton
 
 For the determinization algorithm, you can run
 ```
-./PseudoDet >output.log
+./PseudoDet >PseudodetResult.log
 ```
 
 ## Documentation
