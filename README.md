@@ -24,14 +24,14 @@ make configure
 make -j20
 make -j20 tutorial 
 ```
-The implemented files are in the folder .../libfaudes/plugins/synthesis,
+The implemented files are in the folder .../libfaudes/plugins/omegaaut,
 At present, you can go to the folder .../tutorial and run
 ```
-./syn_10_test2
+./synthesis
 ```
 Alternatively, output a log:
 ```
-./syn_10_test2 >output.log
+./synthesis >output.log
 ```
 
 At present in the 2nd main() function, I'm testing the PseudoDeterminization algorithm.
