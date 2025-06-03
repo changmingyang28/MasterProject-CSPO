@@ -15,10 +15,12 @@ Makefile.tutorial      plugin to extend the tutorial targets of main makefile
 src/omg_*.cpp          c++ sources 
 src/omg_*.h            c++ headers
 src/omg_include.h      convenience header to include all other headers
+src/PseudoDet.h        Determinization Algorithm for Rabin Automaton
+src/Control_Pattern.h  Handle Controllable and Observable Events in Synthesis
 
 tutorial/omg_.*cpp     tutorial c++ sources, compile to executable
 tutorial/data/*        input data for tutorials
 
-tutorial/synthesis.cpp    compute the Product and epsilon-observation
-tutorial/PseudoDet.cpp    Determinization Algorithm with TestSet.
+tutorial/ControlPattern.cpp    compute the Product and epsilon-observation in a Demo
+tutorial/RabinDet.cpp          Test cases for PseudoDet algorithm
 
