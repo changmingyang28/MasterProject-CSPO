@@ -19,6 +19,8 @@
 #include "omg_rabinacc.h"
 #include "omg_rabinaut.h"
 #include "omg_rabinfnct.h"
+#include "control_pattern.h"
+#include "PseudoDet.h"
 
 #endif
 

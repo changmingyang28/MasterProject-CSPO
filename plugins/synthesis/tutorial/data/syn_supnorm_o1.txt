@@ -1,3 +1,0 @@
-<Alphabet>
-c            
-</Alphabet>
