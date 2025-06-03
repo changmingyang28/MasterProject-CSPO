@@ -24,25 +24,16 @@ make configure
 make -j20
 make -j20 tutorial 
 ```
-The implemented files are in the folder .../libfaudes/plugins/omegaaut,
-At present, you can go to the folder .../tutorial and run
-```
-./synthesis
-```
-Alternatively, output a log:
-```
-./synthesis >NRA.log
-```
-the file synthesis.cpp is to compute the product of plant and specification into a non-deterministic Rabin Automaton
+Now the whole Project is divided into two parts, one for handling the controllable and Observable Events in the Synthesis Problem, and another for Determining a Non-deterministic Rabin Automaton
+under the folder /plugins/omegaaut/tutorial, by running :
 
-For the determinization algorithm, you can run
 ```
-./PseudoDet >PseudodetResult.log
+./ControlPattern >result.log
 ```
-
-## Documentation
-
-The Documentation of my work is accessible via .../libfaudes/plugins/synthesis/documentation/docu.pdf.
+and:
+```
+./RabinDet >DRA.log
+```
 
 
 ## Authors/Copyright
