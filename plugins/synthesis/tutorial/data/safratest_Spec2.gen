@@ -1,0 +1,29 @@
+<Generator>
+Spec
+
+<Alphabet>
+"a" "b"
+</Alphabet>
+
+<States>
+"E" "F"
+</States>
+
+<TransRel>
+"E" "a"  "F"
+"E" "a"  "E"
+"F" "b" "E"
+
+</TransRel>
+
+<InitStates>
+"E"
+</InitStates>
+
+<MarkedStates>
+
+</MarkedStates>
+
+
+</Generator>
+

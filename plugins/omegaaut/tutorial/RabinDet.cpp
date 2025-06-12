@@ -20,7 +20,7 @@
 
          // Read nondeterministic Rabin automaton from file
          RabinAutomaton NRA;
-         NRA.Read("pseudotest/test3.gen");
+         NRA.Read("observed_belt.gen");
          
          std::cout << "\n=== Input Nondeterministic Rabin Automaton ===" << std::endl;
          NRA.DWrite();

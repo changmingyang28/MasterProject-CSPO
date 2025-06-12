@@ -1,0 +1,46 @@
+<Generator name="spec belt">
+
+% 
+%  Statistics for spec belt
+% 
+%  States:        2
+%  Init/Marked:   1/1
+%  Events:        2
+%  Transitions:   2
+%  StateSymbols:  2
+%  Attrib. E/S/T: 0/0/0
+% 
+
+<Alphabet>
+a_1           b_2          
+</Alphabet>
+
+<States>
+F1            F2           
+</States>
+
+<TransRel>
+F1            a_1           F2           
+F2            b_2           F1           
+</TransRel>
+
+<InitStates>
+F1           
+</InitStates>
+
+<MarkedStates>
+F1           
+</MarkedStates>
+
+<RabinAcceptance>
+<RabinPair name="RabinPair">
+<R>
+F1           
+</R>
+<I>
+F2           
+</I>
+</RabinPair>
+</RabinAcceptance>
+
+</Generator>

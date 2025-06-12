@@ -12,10 +12,6 @@ int main(void){
     contevents.Insert("alpha_2");
     plant.SetControllable(contevents);
     
-    // Set observable events (only alpha_1 and alpha_2 are observable)
-    // First set all events as unobservable
-    EventSet allEvents = plant.Alphabet();
-    plant.ClrObservable(allEvents);
     
     // Then set only alpha_1 and alpha_2 as observable
     EventSet obsevents;
