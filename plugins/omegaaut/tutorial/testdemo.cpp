@@ -14,6 +14,7 @@ int main() {
   System cplant; 
  
   tempgen.Read("data/cbplant.gen");
+  tempgen.DWrite();
   tempgen.Version("1",machinea);
   tempgen.Version("2",machineb);
   Parallel(machinea,machineb,cplant);

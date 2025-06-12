@@ -1,4 +1,42 @@
 <Generator>
+"single cb"  
+
+% 
+%  Statistics for single cb
+% 
+%  States:        2
+%  Init/Marked:   1/1
+%  Events:        2
+%  Transitions:   2
+%  StateSymbols:  2
+%  Attrib. E/S/T: 0/0/0
+% 
+
+<Alphabet>
+a#1           b#2          
+</Alphabet>
+
+<States>
+E1#1          E2#2         
+</States>
+
+<TransRel>
+E1[1]         a[1]          E2[2]        
+E2[2]         b[2]          E1[1]        
+</TransRel>
+
+<InitStates>
+E1#1         
+</InitStates>
+
+<MarkedStates>
+E1#1         
+</MarkedStates>
+
+
+</Generator>
+
+<Generator>
 "two belts"  
 
 % 

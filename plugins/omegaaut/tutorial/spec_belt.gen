@@ -35,10 +35,10 @@ F1
 <RabinAcceptance>
 <RabinPair name="RabinPair">
 <R>
-F1           
+F2           
 </R>
 <I>
-F2           
+F1            F2           
 </I>
 </RabinPair>
 </RabinAcceptance>
