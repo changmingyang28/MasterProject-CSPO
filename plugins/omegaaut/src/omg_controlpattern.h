@@ -1,5 +1,5 @@
-#ifndef CONTROL_PATTERN_H
-#define CONTROL_PATTERN_H
+#ifndef FAUDES_OMG_CONTROLPATTERN_H
+#define FAUDES_OMG_CONTROLPATTERN_H
 
 #include "libfaudes.h"
 #include "omg_rabinaut.h"  // For RabinAutomaton typedef
@@ -248,10 +248,12 @@ private:
  * all unobservable events with corresponding epsilon events. Each control pattern
  * gets its own epsilon event to maintain the control pattern structure.
  * 
- * @param rGen Input Rabin automaton
- * @return New Rabin automaton with epsilon events replacing unobservable events
+ * @param rGen 
+ *   Input Rabin automaton
+ * @param rRes
+ *   Output Rabin automaton with epsilon events replacing unobservable events
  */
-FAUDES_API RabinAutomaton EpsObservation(const RabinAutomaton& rGen);
+FAUDES_API void EpsObservation(const RabinAutomaton& rGen, RabinAutomaton& rRes);
 
 /**
  * @brief Compute the synchronous product of two Rabin automata
@@ -260,11 +262,62 @@ FAUDES_API RabinAutomaton EpsObservation(const RabinAutomaton& rGen);
  * Rabin automata. The result is a new Rabin automaton that represents the
  * concurrent behavior of both input automata.
  * 
- * @param rGen1 First Rabin automaton
- * @param rGen2 Second Rabin automaton  
- * @return New Rabin automaton representing the synchronous product
+ * @param rGen1 
+ *   First Rabin automaton
+ * @param rGen2 
+ *   Second Rabin automaton
+ * @param rRes
+ *   Output Rabin automaton representing the synchronous product
  */
-FAUDES_API RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& rGen2);
+FAUDES_API void RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& rGen2, RabinAutomaton& rRes);
+
+/**
+ * @brief Rabin control synthesis under partial observation
+ *
+ * This function performs supervisory control synthesis for Rabin automata
+ * under partial observation. It takes a plant and specification as input
+ * and computes a supervisor that enforces the specification while respecting
+ * controllability and observability constraints.
+ *
+ * @param rPlant
+ *   Plant model (Rabin automaton with controllable/observable event attributes)
+ * @param rSpec
+ *   Specification (Rabin automaton)
+ * @param rSupervisor
+ *   Output supervisor (Rabin automaton)
+ *
+ * @exception Exception
+ *   - Plant has no controllable events (id 300)
+ *   - Empty specification language (id 301)
+ *   - Synthesis failed - no valid supervisor exists (id 302)
+ */
+FAUDES_API void RabinCtrlPartialObs(const RabinAutomaton& rPlant, const RabinAutomaton& rSpec, RabinAutomaton& rSupervisor);
+
+/**
+ * @brief Rabin control synthesis under partial observation (with explicit event sets)
+ *
+ * This function performs supervisory control synthesis for Rabin automata
+ * under partial observation with explicitly specified controllable and observable events.
+ *
+ * @param rPlant
+ *   Plant model (Rabin automaton)
+ * @param rControllableEvents
+ *   Set of controllable events
+ * @param rObservableEvents
+ *   Set of observable events
+ * @param rSpec
+ *   Specification (Rabin automaton)
+ * @param rSupervisor
+ *   Output supervisor (Rabin automaton)
+ *
+ * @exception Exception
+ *   - Empty controllable event set (id 300)
+ *   - Empty specification language (id 301)
+ *   - Synthesis failed - no valid supervisor exists (id 302)
+ */
+FAUDES_API void RabinCtrlPartialObs(const RabinAutomaton& rPlant, const EventSet& rControllableEvents, 
+                                   const EventSet& rObservableEvents, const RabinAutomaton& rSpec, 
+                                   RabinAutomaton& rSupervisor);
 
 // ============================================================================
 // Inline Implementations
@@ -279,4 +332,4 @@ inline bool AugmentedEvent::operator<(const AugmentedEvent& other) const {
 
 } // namespace faudes
 
-#endif // CONTROL_PATTERN_H
+#endif // FAUDES_OMG_CONTROLPATTERN_H

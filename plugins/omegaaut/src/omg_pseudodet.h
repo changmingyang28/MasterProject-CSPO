@@ -1,4 +1,4 @@
-/** @file PseudoDet.h 
+/** @file omg_pseudodet.h 
  * 
  * Pseudo-determinization algorithm for Rabin automata
  * 
@@ -8,8 +8,8 @@
  * @ingroup OmegaautPlugin
  */
 
- #ifndef FAUDES_PSEUDODET_H
- #define FAUDES_PSEUDODET_H
+ #ifndef FAUDES_OMG_PSEUDODET_H
+ #define FAUDES_OMG_PSEUDODET_H
  
  #include "libfaudes.h"
  #include "omg_rabinacc.h"
@@ -96,7 +96,7 @@
   *   - Input automaton has no initial states (id 201)
   *   - Algorithm complexity limits exceeded (id 202)
   */
- FAUDES_API RabinAutomaton PseudoDet(const RabinAutomaton& rGen);
+ FAUDES_API void PseudoDet(const RabinAutomaton& rGen, RabinAutomaton& rRes);
  
  /**
   * Compute tree signature for state equivalence checking
@@ -110,4 +110,4 @@
  
  } // namespace faudes
  
- #endif // FAUDES_PSEUDODET_H
+ #endif // FAUDES_OMG_PSEUDODET_H

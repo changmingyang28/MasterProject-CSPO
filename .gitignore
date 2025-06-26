@@ -42,3 +42,6 @@ libfaudes-2*
 
 # local archive
 local
+
+# Claude Code settings
+.claude/

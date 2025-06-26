@@ -1,4 +1,5 @@
 #include "libfaudes.h"
+#include "omg_controlpattern.h"
 
 namespace faudes {
 
@@ -108,40 +109,40 @@ bool AugmentedAlphabet::ExistsAugmentedEvent(Idx event, const EventSet& pattern)
 
 // Find by pattern
 AugmentedAlphabet AugmentedAlphabet::FindByPattern(const EventSet& pattern) const {
-    AugmentedAlphabet result;
+    AugmentedAlphabet rRes;
     
     for (Iterator it = Begin(); it != End(); ++it) {
         if (it->ControlPattern() == pattern) {
-            result.Insert(*it);
+            rRes.Insert(*it);
         }
     }
     
-    return result;
+    return rRes;
 }
 
 // Generate subsets recursively
 
 // Get all events
 EventSet AugmentedAlphabet::Events(void) const {
-    EventSet result;
+    EventSet rRes;
     
     for (Iterator it = Begin(); it != End(); ++it) {
-        result.Insert(it->Event());
+        rRes.Insert(it->Event());
     }
     
-    return result;
+    return rRes;
 }
 
 // Get all control patterns
 std::vector<EventSet> AugmentedAlphabet::ControlPatterns(void) const {
-    std::vector<EventSet> result;
+    std::vector<EventSet> rRes;
     
     for (Iterator it = Begin(); it != End(); ++it) {
         const EventSet& pattern = it->ControlPattern();
         
         // Check if pattern already exists
         bool found = false;
-        for (const auto& existing : result) {
+        for (const auto& existing : rRes) {
             if (existing == pattern) {
                 found = true;
                 break;
@@ -149,11 +150,11 @@ std::vector<EventSet> AugmentedAlphabet::ControlPatterns(void) const {
         }
         
         if (!found) {
-            result.push_back(pattern);
+            rRes.push_back(pattern);
         }
     }
     
-    return result;
+    return rRes;
 }
 
 /*
@@ -167,7 +168,7 @@ std::vector<EventSet> ControlPatternGenerator::GenerateControlPatterns(
     const EventSet& alphabet, 
     const EventSet& controllableEvents) {
     
-    std::vector<EventSet> result;
+    std::vector<EventSet> rRes;
     
     // Get uncontrollable events (must always be included)
     EventSet uncontrollableEvents = alphabet - controllableEvents;
@@ -181,15 +182,15 @@ std::vector<EventSet> ControlPatternGenerator::GenerateControlPatterns(
     
     // Generate all subsets of controllable events
     EventSet current = uncontrollableEvents; // Start with uncontrollable events
-    GenerateSubsets(controllableVec, uncontrollableEvents, result, current, 0);
+    GenerateSubsets(controllableVec, uncontrollableEvents, rRes, current, 0);
     
     // Assign names to the control patterns
-    for (size_t i = 0; i < result.size(); ++i) {
+    for (size_t i = 0; i < rRes.size(); ++i) {
         std::string patternName = "G" + std::to_string(i + 1);
-        result[i].Name(patternName);
+        rRes[i].Name(patternName);
     }
     
-    return result;
+    return rRes;
 }
 
 // Generate augmented alphabet
@@ -197,7 +198,7 @@ AugmentedAlphabet ControlPatternGenerator::GenerateAugmentedAlphabet(
     const EventSet& alphabet,
     const EventSet& controllableEvents) {
     
-    AugmentedAlphabet result;
+    AugmentedAlphabet rRes;
     
     // Generate all control patterns
     std::vector<EventSet> patterns = GenerateControlPatterns(alphabet, controllableEvents);
@@ -208,12 +209,12 @@ AugmentedAlphabet ControlPatternGenerator::GenerateAugmentedAlphabet(
         
         for (const auto& pattern : patterns) {
             if (pattern.Exists(*eventIt)) {
-                result.InsertAugmentedEvent(*eventIt, pattern);
+                rRes.InsertAugmentedEvent(*eventIt, pattern);
             }
         }
     }
     
-    return result;
+    return rRes;
 }
 
 
@@ -223,7 +224,7 @@ RabinAutomaton ControlPatternGenerator::ExpandToControlPatterns(
     const RabinAutomaton& rGen,
     const EventSet& controllableEvents) {
     
-    RabinAutomaton result;
+    RabinAutomaton rRes;
     
     // Get original alphabet and controllable events
     EventSet originalAlphabet = rGen.Alphabet();
@@ -262,21 +263,21 @@ RabinAutomaton ControlPatternGenerator::ExpandToControlPatterns(
                 // Create expanded event name: originalEventName_PatternName
                 std::string expandedEventName = originalEventName + "_" + pattern.Name();
                 
-                // Insert into result alphabet
-                Idx expandedEvent = result.InsEvent(expandedEventName);
+                // Insert into rRes alphabet
+                Idx expandedEvent = rRes.InsEvent(expandedEventName);
                 
                 // Copy controllability attributes
                 if (actualControllableEvents.Exists(originalEvent)) {
-                    result.SetControllable(expandedEvent);
+                    rRes.SetControllable(expandedEvent);
                 } else {
-                    result.ClrControllable(expandedEvent);
+                    rRes.ClrControllable(expandedEvent);
                 }
                 
                 // Copy observability from original event
                 if (rGen.Observable(originalEvent)) {
-                    result.SetObservable(expandedEvent);
+                    rRes.SetObservable(expandedEvent);
                 } else {
-                    result.ClrObservable(expandedEvent);
+                    rRes.ClrObservable(expandedEvent);
                 }
                 
                 // Add to mapping
@@ -300,15 +301,15 @@ RabinAutomaton ControlPatternGenerator::ExpandToControlPatterns(
         }
         
         // Insert state with same index and name
-        result.InsState(state);
-        result.StateName(state, stateName);
+        rRes.InsState(state);
+        rRes.StateName(state, stateName);
         
         // Copy initial and marked state properties
         if (rGen.ExistsInitState(state)) {
-            result.SetInitState(state);
+            rRes.SetInitState(state);
         }
         if (rGen.ExistsMarkedState(state)) {
-            result.SetMarkedState(state);
+            rRes.SetMarkedState(state);
         }
     }
     
@@ -324,7 +325,7 @@ RabinAutomaton ControlPatternGenerator::ExpandToControlPatterns(
             const std::vector<Idx>& expandedEvents = eventMapping[originalEvent];
             
             for (Idx expandedEvent : expandedEvents) {
-                result.SetTransition(srcState, expandedEvent, dstState);
+                rRes.SetTransition(srcState, expandedEvent, dstState);
             }
         }
     }
@@ -345,37 +346,37 @@ RabinAutomaton ControlPatternGenerator::ExpandToControlPatterns(
         newAcceptance.Insert(newPair);
     }
     
-    result.RabinAcceptance() = newAcceptance;
+    rRes.RabinAcceptance() = newAcceptance;
     
-    // Set result name
-    result.Name(rGen.Name() + "_Expanded");
+    // Set rRes name
+    rRes.Name(rGen.Name() + "_Expanded");
     
-    return result;
+    return rRes;
 }
 void ControlPatternGenerator::GenerateSubsets(
     const std::vector<Idx>& controllableEvents,
     const EventSet& uncontrollableEvents,
-    std::vector<EventSet>& result,
+    std::vector<EventSet>& rRes,
     EventSet& current,
     size_t index) {
     
     if (index == controllableEvents.size()) {
-        // Base case: add current subset to result
-        result.push_back(current);
+        // Base case: add current subset to rRes
+        rRes.push_back(current);
         return;
     }
     
     // Recursive case: try without current controllable event
-    GenerateSubsets(controllableEvents, uncontrollableEvents, result, current, index + 1);
+    GenerateSubsets(controllableEvents, uncontrollableEvents, rRes, current, index + 1);
     
     // Try with current controllable event
     current.Insert(controllableEvents[index]);
-    GenerateSubsets(controllableEvents, uncontrollableEvents, result, current, index + 1);
+    GenerateSubsets(controllableEvents, uncontrollableEvents, rRes, current, index + 1);
     current.Erase(controllableEvents[index]); // backtrack
 }
 
-RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& rGen2) {
-    RabinAutomaton result;
+void RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& rGen2, RabinAutomaton& rRes) {
+    rRes.Clear();
     
     // 1. Construct alphabet intersection
     EventSet intersectAlphabet = rGen1.Alphabet() * rGen2.Alphabet();
@@ -394,9 +395,9 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
         }
         
         // Insert event with name
-        result.InsEvent(event);
+        rRes.InsEvent(event);
         if(!eventName.empty()) {
-            result.EventName(event, eventName);
+            rRes.EventName(event, eventName);
         }
         
         // Inherit controllability (from the automaton that has this event)
@@ -409,9 +410,9 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
         }
         
         if(isControllable) {
-            result.SetControllable(event);
+            rRes.SetControllable(event);
         } else {
-            result.ClrControllable(event);
+            rRes.ClrControllable(event);
         }
         
         // Inherit observability (from the automaton that has this event)
@@ -423,9 +424,9 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
         }
         
         if(isObservable) {
-            result.SetObservable(event);
+            rRes.SetObservable(event);
         } else {
-            result.ClrObservable(event);
+            rRes.ClrObservable(event);
         }
         
         // Inherit forcibility (from the automaton that has this event)
@@ -437,9 +438,9 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
         }
         
         if(isForcible) {
-            result.SetForcible(event);
+            rRes.SetForcible(event);
         } else {
-            result.ClrForcible(event);
+            rRes.ClrForcible(event);
         }
     }
     
@@ -449,7 +450,7 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
     for(sit1 = rGen1.StatesBegin(); sit1 != rGen1.StatesEnd(); ++sit1) {
         for(sit2 = rGen2.StatesBegin(); sit2 != rGen2.StatesEnd(); ++sit2) {
             std::string stateName = rGen1.StateName(*sit1) + "|" + rGen2.StateName(*sit2);
-            Idx newState = result.InsState(stateName);
+            Idx newState = rRes.InsState(stateName);
             stateMap[std::make_pair(*sit1, *sit2)] = newState;
         }
     }
@@ -457,14 +458,14 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
     StateSet::Iterator init1, init2;
     for(init1 = rGen1.InitStatesBegin(); init1 != rGen1.InitStatesEnd(); ++init1) {
         for(init2 = rGen2.InitStatesBegin(); init2 != rGen2.InitStatesEnd(); ++init2) {
-            result.SetInitState(stateMap[std::make_pair(*init1, *init2)]);
+            rRes.SetInitState(stateMap[std::make_pair(*init1, *init2)]);
         }
     }
     
     StateSet::Iterator marked1, marked2;
     for(marked1 = rGen1.MarkedStatesBegin(); marked1 != rGen1.MarkedStatesEnd(); ++marked1) {
         for(marked2 = rGen2.MarkedStatesBegin(); marked2 != rGen2.MarkedStatesEnd(); ++marked2) {
-            result.SetMarkedState(stateMap[std::make_pair(*marked1, *marked2)]);
+            rRes.SetMarkedState(stateMap[std::make_pair(*marked1, *marked2)]);
         }
     }
     
@@ -474,7 +475,7 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
             if(tit1->Ev == tit2->Ev && intersectAlphabet.Exists(tit1->Ev)) {
                 Idx srcState = stateMap[std::make_pair(tit1->X1, tit2->X1)];
                 Idx dstState = stateMap[std::make_pair(tit1->X2, tit2->X2)];
-                result.SetTransition(srcState, tit1->Ev, dstState);
+                rRes.SetTransition(srcState, tit1->Ev, dstState);
             }
         }
     }
@@ -544,22 +545,20 @@ RabinAutomaton RabinProduct(const RabinAutomaton& rGen1, const RabinAutomaton& r
         }
     }
     
-    result.RabinAcceptance() = productAcc;
+    rRes.RabinAcceptance() = productAcc;
 
-    result.Alphabet().DWrite();
-    
-    return result;
+    rRes.Alphabet().DWrite();
 }
 
-RabinAutomaton EpsObservation(const RabinAutomaton& rGen) {
-    RabinAutomaton result = rGen;  // Copy original automaton
+void EpsObservation(const RabinAutomaton& rGen, RabinAutomaton& rRes) {
+    rRes = rGen;  // Copy original automaton
     
     // Get unobservable events
-    EventSet unobservableEvents = result.UnobservableEvents();
+    EventSet unobservableEvents = rRes.UnobservableEvents();
     
     // If no unobservable events, return original automaton
     if(unobservableEvents.Size() == 0) {
-        return result;
+        return;
     }
     
     // Step 1: Create new epsilon events for each control pattern
@@ -569,7 +568,7 @@ RabinAutomaton EpsObservation(const RabinAutomaton& rGen) {
     // First pass: collect all unique patterns from unobservable events
     EventSet::Iterator uit;
     for(uit = unobservableEvents.Begin(); uit != unobservableEvents.End(); ++uit) {
-        std::string eventName = result.EventName(*uit);
+        std::string eventName = rRes.EventName(*uit);
         
         // Extract pattern from event name (e.g., "beta_1_G3" -> "G3")
         size_t pos = eventName.find_last_of('_');
@@ -583,19 +582,19 @@ RabinAutomaton EpsObservation(const RabinAutomaton& rGen) {
     std::map<std::string, Idx> patternToEpsilon;
     for(const std::string& pattern : patterns) {
         std::string epsEventName = "eps_" + pattern;
-        Idx epsEvent = result.InsEvent(epsEventName);
+        Idx epsEvent = rRes.InsEvent(epsEventName);
         
         // Set epsilon event as uncontrollable and unobservable
-        result.ClrControllable(epsEvent);
-        result.ClrObservable(epsEvent);
-        result.ClrForcible(epsEvent);
+        rRes.ClrControllable(epsEvent);
+        rRes.ClrObservable(epsEvent);
+        rRes.ClrForcible(epsEvent);
         
         patternToEpsilon[pattern] = epsEvent;
     }
     
     // Step 3: Create mapping from unobservable events to epsilon events
     for(uit = unobservableEvents.Begin(); uit != unobservableEvents.End(); ++uit) {
-        std::string eventName = result.EventName(*uit);
+        std::string eventName = rRes.EventName(*uit);
         
         // Extract pattern from event name
         size_t pos = eventName.find_last_of('_');
@@ -608,7 +607,7 @@ RabinAutomaton EpsObservation(const RabinAutomaton& rGen) {
     }
     
     // Step 4: Replace transitions
-    TransSet originalTransitions = result.TransRel();  // Get copy of original transition relation
+    TransSet originalTransitions = rRes.TransRel();  // Get copy of original transition relation
     
     TransSet::Iterator tit;
     for(tit = originalTransitions.Begin(); tit != originalTransitions.End(); ++tit) {
@@ -617,21 +616,19 @@ RabinAutomaton EpsObservation(const RabinAutomaton& rGen) {
             Idx newEvent = eventMapping[tit->Ev];
             
             // Remove original transition
-            result.ClrTransition(tit->X1, tit->Ev, tit->X2);
+            rRes.ClrTransition(tit->X1, tit->Ev, tit->X2);
             
             // Add new transition using epsilon
-            result.SetTransition(tit->X1, newEvent, tit->X2);
+            rRes.SetTransition(tit->X1, newEvent, tit->X2);
             
         }
     }
     
     // Step 5: Remove old unobservable events from alphabet
     for(uit = unobservableEvents.Begin(); uit != unobservableEvents.End(); ++uit) {
-        std::string removedEventName = result.EventName(*uit);
-        result.DelEvent(*uit);
+        std::string removedEventName = rRes.EventName(*uit);
+        rRes.DelEvent(*uit);
     }
-
-    return result;
 }
 
 } // namespace faudes

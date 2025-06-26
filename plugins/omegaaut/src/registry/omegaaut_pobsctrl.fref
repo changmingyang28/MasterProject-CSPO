@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!DOCTYPE ReferencePage SYSTEM "http://www.faudes.org/dtd/1.0/referencepage.dtd">
+<ReferencePage chapter="Reference" section="OmegaAut" page="4_Partial-Obs-Control" title="Partial Observation Control for Rabin Automata">
+
+<h1>
+Partial Observation Control for Rabin Automata
+</h1>
+
+<fsummary>
+Control synthesis for Rabin automata under partial observation constraints using control patterns and pseudo-determinization.
+</fsummary>
+
+<p>
+This section provides functions for supervisory control synthesis of Rabin automata 
+under partial observation. The synthesis approach combines control pattern expansion,
+epsilon observation, and pseudo-determinization to compute deterministic supervisors
+that enforce specifications while respecting controllability and observability constraints.
+</p>
+
+<h2>
+Partial Observation Control Problem
+</h2>
+
+<p>
+In the partial observation setting, the supervisor can only observe a subset of events
+<fimath>\Sigma_o \subseteq \Sigma</fimath> and control a subset of events 
+<fimath>\Sigma_c \subseteq \Sigma</fimath>. The synthesis problem is to find a 
+supervisor that:
+</p>
+
+<ul>
+<li>Enforces the given specification</li>
+<li>Respects controllability constraints (cannot disable uncontrollable events)</li>
+<li>Respects observability constraints (decisions based only on observable events)</li>
+<li>Maintains the Rabin acceptance condition</li>
+</ul>
+
+<h2>
+Synthesis Algorithm
+</h2>
+
+<p>
+The synthesis algorithm consists of the following steps:
+</p>
+
+<ol>
+<li><strong>Product Construction:</strong> Compute the synchronous product of plant and specification</li>
+<li><strong>Control Pattern Expansion:</strong> Expand the alphabet to include control patterns</li>
+<li><strong>Epsilon Observation:</strong> Replace unobservable events with epsilon transitions</li>
+<li><strong>Pseudo-Determinization:</strong> Convert to a deterministic Rabin automaton</li>
+<li><strong>Trimming:</strong> Remove unreachable states</li>
+</ol>
+
+<!-- ================================================================= -->
+<!-- ================================================================= -->
+<h2>
+Function RabinCtrlPartialObs
+</h2>
+
+<ffunction name="RabinCtrlPartialObs">
+
+<ffnct_reference>
+<ffunction_documentation_pages>
+<freturn>Supervisor (Rabin automaton)</freturn>
+<fargument>Plant (System or Generator)</fargument>
+<fargument>Specification (Generator)</fargument>
+<fargument>Controllable Events (EventSet, optional)</fargument>
+<fargument>Observable Events (EventSet, optional)</fargument>
+</ffunction_documentation_pages>
+</ffnct_reference>
+
+<p>
+This function performs complete supervisory control synthesis for Rabin automata
+under partial observation. It automatically extracts controllable and observable
+events from System attributes or accepts explicit event sets.
+</p>
+
+<h3>Algorithm</h3>
+<p>
+The function internally calls <ffnct>RabinProduct</ffnct>, 
+<ffnct>ExpandToControlPatterns</ffnct>, <ffnct>EpsObservation</ffnct>, 
+and <ffnct>PseudoDet</ffnct> in sequence to compute the supervisor.
+</p>
+
+<h3>Example</h3>
+<fcodeblock>
+System plant;
+RabinAutomaton spec, supervisor;
+
+// Set up plant with controllable and observable events
+EventSet controllable;
+controllable.Insert("a");
+plant.SetControllable(controllable);
+
+EventSet observable;  
+observable.Insert("a");
+observable.Insert("c");
+plant.SetObservable(observable);
+
+// Read specification
+spec.Read("specification.gen");
+
+// Synthesize supervisor
+RabinCtrlPartialObs(plant, spec, supervisor);
+
+// Write result
+supervisor.Write("supervisor.gen");
+</fcodeblock>
+
+</ffunction>
+
+<!-- ================================================================= -->
+<!-- ================================================================= -->
+<h2>
+Function RabinProduct
+</h2>
+
+<ffunction name="RabinProduct">
+
+<ffnct_reference>
+<ffunction_documentation_pages>
+<freturn>Product automaton (Generator)</freturn>
+<fargument>First automaton (Generator)</fargument>
+<fargument>Second automaton (Generator)</fargument>
+</ffunction_documentation_pages>
+</ffnct_reference>
+
+<p>
+Computes the synchronous product (parallel composition) of two Rabin automata.
+The result combines the behaviors of both automata with a properly composed 
+Rabin acceptance condition.
+</p>
+
+<h3>Example</h3>
+<fcodeblock>
+RabinAutomaton plant, spec, product;
+
+plant.Read("plant.gen");
+spec.Read("specification.gen");
+
+RabinProduct(plant, spec, product);
+product.Write("product.gen");
+</fcodeblock>
+
+</ffunction>
+
+<!-- ================================================================= -->
+<!-- ================================================================= -->
+<h2>
+Function EpsObservation
+</h2>
+
+<ffunction name="EpsObservation">
+
+<ffnct_reference>
+<ffunction_documentation_pages>
+<freturn>Epsilon-observed automaton (Generator)</freturn>
+<fargument>Input automaton (Generator)</fargument>
+</ffunction_documentation_pages>
+</ffnct_reference>
+
+<p>
+Performs epsilon observation on a Rabin automaton by replacing unobservable 
+events with epsilon transitions. This transformation preserves the acceptance 
+condition while enabling the handling of partial observability.
+</p>
+
+<h3>Algorithm</h3>
+<p>
+The function identifies unobservable events and creates epsilon transitions
+that maintain the control pattern structure necessary for synthesis.
+</p>
+
+</ffunction>
+
+<!-- ================================================================= -->
+<!-- ================================================================= -->
+<h2>
+Function PseudoDet
+</h2>
+
+<ffunction name="PseudoDet">
+
+<ffnct_reference>
+<ffunction_documentation_pages>
+<freturn>Deterministic automaton (Generator)</freturn>
+<fargument>Nondeterministic automaton (Generator)</fargument>
+</ffunction_documentation_pages>
+</ffnct_reference>
+
+<p>
+Converts a nondeterministic Rabin automaton to an equivalent deterministic
+Rabin automaton using the pseudo-determinization algorithm. The algorithm
+uses labeled trees to track acceptance condition during determinization.
+</p>
+
+<h3>Algorithm</h3>
+<p>
+The pseudo-determinization algorithm maintains tree structures for each
+state to track which original states are reachable and their acceptance
+status. This ensures the Rabin acceptance condition is preserved.
+</p>
+
+<h3>Example</h3>
+<fcodeblock>
+RabinAutomaton nondet, det;
+
+nondet.Read("nondeterministic.gen");
+PseudoDet(nondet, det);
+det.Write("deterministic.gen");
+</fcodeblock>
+
+</ffunction>
+
+<!-- ================================================================= -->
+<!-- ================================================================= -->
+<h2>
+Complete Synthesis Example
+</h2>
+
+<p>
+The following example demonstrates the complete synthesis process:
+</p>
+
+<fcodeblock>
+// Set up plant model
+System plant;
+Generator machine1, machine2;
+machine1.Read("machine1.gen");  
+machine2.Read("machine2.gen");
+Parallel(machine1, machine2, plant);
+
+// Configure controllability
+EventSet controllable;
+controllable.Insert("start");
+plant.SetControllable(controllable);
+
+// Configure observability  
+EventSet observable;
+observable.Insert("start");
+observable.Insert("done");
+plant.SetObservable(observable);
+
+// Read specification
+RabinAutomaton spec;
+spec.Read("specification.gen");
+
+// Synthesize supervisor (one-line solution!)
+RabinAutomaton supervisor;
+RabinCtrlPartialObs(plant, spec, supervisor);
+
+// Verify and save result
+if(supervisor.Empty()) {
+  std::cout << "No supervisor exists!" << std::endl;
+} else {
+  std::cout << "Supervisor generated successfully" << std::endl;
+  supervisor.Write("supervisor.gen");
+}
+</fcodeblock>
+
+</ReferencePage>

@@ -32,7 +32,8 @@ int main(void){
     // spec doesn't need event attribute settings, it only defines constraints
     
     // Compute product
-    RabinAutomaton product = RabinProduct(plant, spec);
+    RabinAutomaton product;
+    RabinProduct(plant, spec, product);
     product.DWrite();
     
     RabinAutomaton expandedplant = ControlPatternGenerator::ExpandToControlPatterns(
@@ -41,7 +42,8 @@ int main(void){
     std::cout << "\nExpanded Buffer Automaton:" << std::endl;
     expandedplant.DWrite();
     
-    RabinAutomaton epsObserved = EpsObservation(expandedplant);
+    RabinAutomaton epsObserved;
+    EpsObservation(expandedplant, epsObserved);
     epsObserved.DWrite();
     
     return 0;

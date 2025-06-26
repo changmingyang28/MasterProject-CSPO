@@ -10,9 +10,9 @@
  */
 
  #include "libfaudes.h"
- #include "PseudoDet.h"
  
  using namespace faudes;
+
  
  int main(void) {
      
@@ -24,13 +24,15 @@
          
          std::cout << "\n=== Input Nondeterministic Rabin Automaton ===" << std::endl;
          NRA.DWrite();
-         
+         NRA.RabinGraphWrite("NRA.png");
          // Apply pseudo-determinization algorithm
          std::cout << "\n=== Applying Pseudo-Determinization Algorithm ===" << std::endl;
-         RabinAutomaton DRA = PseudoDet(NRA);
+
+         RabinAutomaton DRA;
+         PseudoDet(NRA, DRA);
          
          std::cout << "\n=== Output Deterministic Rabin Automaton ===" << std::endl;
          DRA.DWrite();
-         
+         DRA.RabinGraphWrite("DRA.png");
          return 0;
      }

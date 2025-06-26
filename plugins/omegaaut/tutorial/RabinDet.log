@@ -61,10 +61,10 @@ E1|E1|F1#1
 <RabinAcceptance>
 <RabinPair name="RabinPair">
 <R>
-E1|E1|F1      E2|E1|F1      E1|E2|F1      E2|E2|F1     
+E1|E1|F2      E2|E1|F2      E1|E2|F2      E2|E2|F2     
 </R>
 <I>
-E1|E1|F2      E2|E1|F2      E1|E2|F2      E2|E2|F2     
+E1|E1|F1      E2|E1|F1      E1|E2|F1      E2|E2|F1     
 </I>
 </RabinPair>
 </RabinAcceptance>
@@ -76,22 +76,21 @@ E1|E1|F2      E2|E1|F2      E1|E2|F2      E2|E2|F2
 Debug: Input generator has 1 RabinPairs
 Debug: Processing state 1 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              </IndexSet>], color=WHITE, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Created new state 2 for tree
-Debug: Marking state 2
 Debug: Processing event b_2_G1
 Debug: Created new state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Created new state 4 for tree
+Debug: Marking state 4
 Debug: Processing event eps_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 4 for tree
-Debug: Processing state 2 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 4              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 2 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 4              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G1
@@ -99,11 +98,12 @@ Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Created new state 5 for tree
-Debug: Marking state 5
 Debug: Processing event eps_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 5 for tree
 Debug: Processing state 3 with tree: Tree{root=1, nodes=[]}
 Debug: Processing event a_1_G2
@@ -116,59 +116,57 @@ Debug: Processing event eps_G1
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G2
 Debug: Found existing state 3 for tree
-Debug: Processing state 4 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              5              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 4 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              5              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Created new state 6 for tree
-Debug: Marking state 6
 Debug: Processing event b_2_G1
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 4 for tree
 Debug: Processing event eps_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 4 for tree
-Debug: Processing state 5 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 2              4              8              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 5 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 2              4              8              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Created new state 7 for tree
+Debug: Marking state 7
 Debug: Processing event b_2_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 7 for tree
 Debug: Processing event eps_G1
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Created new state 8 for tree
-Debug: Marking state 8
 Debug: Processing event eps_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 8 for tree
-Debug: Processing state 6 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 4              8              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 6 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 4              8              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 7 for tree
 Debug: Processing event b_2_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 7 for tree
 Debug: Processing event eps_G1
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 8 for tree
 Debug: Processing event eps_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 8 for tree
-Debug: Processing state 7 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 3              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 7 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 3              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G1
@@ -176,77 +174,75 @@ Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Created new state 9 for tree
+Debug: Marking state 9
 Debug: Processing event eps_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 9 for tree
-Debug: Processing state 8 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 2              4              6              8              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 8 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 2              4              6              8              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Created new state 10 for tree
+Debug: Marking state 10
 Debug: Processing event b_2_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 10 for tree
 Debug: Processing event eps_G1
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 8 for tree
 Debug: Processing event eps_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 8 for tree
-Debug: Processing state 9 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              7              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing state 9 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              7              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
 Debug: Processing event a_1_G2
-Debug: Green coloring for node 1
+Warning: Reached maximum total children limit.
+Debug: Red breakpoint at node 1
 Debug: Found existing state 2 for tree
 Debug: Processing event b_2_G1
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Created new state 11 for tree
+Debug: Marking state 11
 Debug: Processing event eps_G2
+Debug: Green coloring for node 1
+Debug: Found existing state 11 for tree
+Debug: Processing state 10 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing event a_1_G2
 Warning: Reached maximum total children limit.
 Debug: Red breakpoint at node 1
-Debug: Found existing state 11 for tree
-Debug: Processing state 10 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
-Debug: Processing event a_1_G2
-Debug: Green coloring for node 1
 Debug: Found existing state 2 for tree
 Debug: Processing event b_2_G1
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 11 for tree
 Debug: Processing event eps_G2
+Debug: Green coloring for node 1
+Debug: Found existing state 11 for tree
+Debug: Processing state 11 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              5              7              </IndexSet>], color=GREEN, children=0, aSet=0, rSet=0}, ]}
+Debug: Processing event a_1_G2
 Warning: Reached maximum total children limit.
 Debug: Red breakpoint at node 1
-Debug: Found existing state 11 for tree
-Debug: Processing state 11 with tree: Tree{root=1, nodes=[1:Node{states=[<IndexSet> 1              3              5              7              </IndexSet>], color=RED, children=0, aSet=0, rSet=0}, ]}
-Debug: Processing event a_1_G2
-Debug: Green coloring for node 1
 Debug: Found existing state 6 for tree
 Debug: Processing event b_2_G1
 Debug: Found existing state 3 for tree
 Debug: Processing event b_2_G2
 Debug: Found existing state 3 for tree
 Debug: Processing event eps_G1
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 11 for tree
 Debug: Processing event eps_G2
-Warning: Reached maximum total children limit.
-Debug: Red breakpoint at node 1
+Debug: Green coloring for node 1
 Debug: Found existing state 11 for tree
 Debug: PseudoDet completed with 11 states and 1 RabinPairs
 
@@ -258,7 +254,7 @@ PseudoDet(Generator_Expanded)
 %  Statistics for PseudoDet(Generator_Expanded)
 % 
 %  States:        11
-%  Init/Marked:   1/4
+%  Init/Marked:   1/5
 %  Events:        5
 %  Transitions:   55
 %  StateSymbols:  0
@@ -338,16 +334,16 @@ eps_G2#5      +o+
 </InitStates>
 
 <MarkedStates>
-"2#2"         "5#5"         "6#6"         "8#8"        
+"4#4"         "7#7"         "9#9"         "10#10"       "11#11"      
 </MarkedStates>
 
 <RabinAcceptance>
 <RabinPair name="RabinPair">
 <R>
-4              7              9              10             11            
+2              5              6              8             
 </R>
 <I>
-2              5              6              8             
+4              7              9              10             11            
 </I>
 </RabinPair>
 </RabinAcceptance>

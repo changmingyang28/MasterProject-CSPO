@@ -31,7 +31,7 @@ int main() {
   obsevents.Insert("b_2");
   cplant.SetObservable(obsevents);
   // Write to file
-  cplant.Write("tmp_doublebelts.gen");
+  cplant.Write("data/tmp_doublebelts.gen");
 
   // Report to console
   cplant.Name("two belts");
@@ -41,25 +41,16 @@ int main() {
   RabinAutomaton spec;
   spec.Read("data/cbspec.gen");
   spec.Name("spec belt");
-  spec.Write("spec_belt.gen");
+  spec.Write("data/tem_spec_belt.gen");
 
   InvProject(spec,cplant.Alphabet()); 
   spec.DWrite();
 
-  RabinAutomaton product;
-  RabinProduct(cplant, spec,product);
-  product.Name("product belt");
-  product.DWrite();
-    
-    RabinAutomaton expandedplant = ControlPatternGenerator::ExpandToControlPatterns(
-        product, contevents);
-    
-  std::cout << "\nExpanded Buffer Automaton:" << std::endl;
-  expandedplant.DWrite();
-    
+  // Synthesis complete - ready to call RabinCtrlPartialObs
+
   RabinAutomaton epsObserved;
-  EpsObservation(expandedplant,epsObserved);
+  RabinCtrlPartialObs(cplant,spec,epsObserved);
   epsObserved.DWrite();
-  epsObserved.Write("observed_belt.gen");
+  epsObserved.Write("data/observed_belt.gen");
   return 0;
 }

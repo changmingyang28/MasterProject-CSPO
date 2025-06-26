@@ -1,9 +1,10 @@
-/** @file PseudoDet.cpp 
+/** @file omg_pseudodet.cpp 
  * 
  * Implementation of pseudo-determinization algorithm for Rabin automata
  */
 
  #include "libfaudes.h"
+ #include "omg_pseudodet.h"
 
  namespace faudes {
  
@@ -147,24 +148,23 @@
  ********************************
  */
  
- RabinAutomaton PseudoDet(const RabinAutomaton& rGen) {
+ void PseudoDet(const RabinAutomaton& rGen, RabinAutomaton& rRes) {
      FD_DF("PseudoDet(" << rGen.Name() << ")");
      
      // Get input Rabin automaton acceptance condition
      RabinAcceptance inputRabinPairs = rGen.RabinAcceptance();
      std::cout << "Debug: Input generator has " << inputRabinPairs.Size() << " RabinPairs" << std::endl;
      
-     RabinAutomaton rResGen;
-     rResGen.Clear();
-     rResGen.Name(CollapsString("PseudoDet(" + rGen.Name() + ")"));
+     rRes.Clear();
+     rRes.Name(CollapsString("PseudoDet(" + rGen.Name() + ")"));
      
      if(rGen.InitStatesEmpty()) {
          std::cout << "Debug: Input generator has no initial states, returning empty result." << std::endl;
-         return rResGen;
+         return;
      }
      
      // Copy alphabet
-     rResGen.InjectAlphabet(rGen.Alphabet());
+     rRes.InjectAlphabet(rGen.Alphabet());
      
      // Safety limits
      const int MAX_STATES = 1000;
@@ -190,7 +190,7 @@
      }
      
      // Create initial state in output automaton
-     Idx initialState = rResGen.InsInitState();
+     Idx initialState = rRes.InsInitState();
      stateToTree[initialState] = initialTree;
      
      std::string initialSig = ComputeTreeSignature(initialTree);
@@ -502,7 +502,7 @@
                  std::cout << "Debug: Found existing state " << targetState << " for tree" << std::endl;
              } else {
                  // Create new state for this tree
-                 targetState = rResGen.InsState();
+                 targetState = rRes.InsState();
                  stateToTree[targetState] = newTree;
                  treeSignatureToState[treeSig] = targetState;
                  
@@ -528,13 +528,13 @@
                  }
                  
                  if(shouldMark) {
-                     rResGen.SetMarkedState(targetState);
+                     rRes.SetMarkedState(targetState);
                      std::cout << "Debug: Marking state " << targetState << std::endl;
                  }
              }
              
              // Add transition from current state to target state
-             rResGen.SetTransition(currentState, event, targetState);
+             rRes.SetTransition(currentState, event, targetState);
          }
      }
      
@@ -576,13 +576,11 @@
          outputRabinPairs.Insert(newPair);
      }
      
-     rResGen.RabinAcceptance() = outputRabinPairs;
+     rRes.RabinAcceptance() = outputRabinPairs;
      
      std::cout << "Debug: PseudoDet completed with " 
                << stateCounter << " states and "
                << outputRabinPairs.Size() << " RabinPairs" << std::endl;
-               
-     return rResGen;
- }
+}
  
  } // namespace faudes
